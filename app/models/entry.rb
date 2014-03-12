@@ -1,13 +1,12 @@
 class Entry < ActiveRecord::Base
-
   belongs_to :feed
 
   def self.create_from_json!(entryData, feed)
     Entry.create!({
       guid: entryData.guid,
-      link: entryData.link, 
+      link: entryData.link,
       published_at: entryData.pubDate,
-      title: entryData.title, 
+      title: entryData.title,
       json: entryData,
       feed_id: feed.id
     })

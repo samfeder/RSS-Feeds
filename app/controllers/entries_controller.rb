@@ -6,6 +6,7 @@ class EntriesController < ApplicationController
 
   private
   def entry_params
-    params.require(:entry).permit(:guid, :link, :published_at, :title, :json, :feed_id)
+    params.require(:entry)
+      .permit(:guid, :link, :published_at, :title, :json, :feed_id)
   end
 end

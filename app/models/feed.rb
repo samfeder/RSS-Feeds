@@ -1,5 +1,4 @@
 class Feed < ActiveRecord::Base
-
   has_many :entries, :dependent => :destroy
 
   def self.find_or_create_by_url(url)

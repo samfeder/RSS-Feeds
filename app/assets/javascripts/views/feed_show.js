@@ -2,29 +2,28 @@ NewReader.Views.FeedShowView = Backbone.View.extend({
 
   template: JST['feed_show'],
 
-  initialize: function(feed){
-    this.feed = feed
-    this.listenTo(this.feed, 'sync', function() {
-      console.log("synced!");
-      this.render();
-    });
+  initialize: function(options){
+    this.feed = options.feed;
+    this.listenTo(this.feed, 'sync', this.render);
     this.entryViews = [];
   },
 
   events: {
-    'click #refresh-button': "refresh"
+    'click #refresh-button': "refresh",
+    'click #delete-button':  "delete"
   },
 
   render: function(){
     var that = this;
     var content = this.template({ feed: this.feed });
+    console.log("entries", this.feed.entries().length);
 
     this.$el.html(content);
-    this.feed.entries().models.forEach(function(entry){
+    this.feed.entries().each(function(entry){
       var entryView = new NewReader.Views.EntryShowView(entry);
       that.entryViews.push(entryView);
       var content = entryView.render().$el;
-      $('#entries-list').append(content);
+      that.$('#entries-list').append(content);
     });
 
     return this;
@@ -34,7 +33,7 @@ NewReader.Views.FeedShowView = Backbone.View.extend({
     this.feed.fetch();
   },
 
-  remove: function () {
+  remove: function (event) {
     var that = this
     this.entryViews.forEach(function(entryView) {
       entryView.remove();
@@ -45,6 +44,16 @@ NewReader.Views.FeedShowView = Backbone.View.extend({
     this.$el.remove();
     this.stopListening();
     return this;
+  },
+
+  delete: function (event) {
+    var id = event.currentTarget.attr('id');
+    var feed = NewReader.feeds.get(id);
+    feed.destroy({
+      success: function () {
+        console.log("destroyed!");
+      }
+    })
   }
 
 });

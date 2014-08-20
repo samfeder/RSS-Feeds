@@ -11,6 +11,7 @@ NewReader.Models.Feed = Backbone.Model.extend({
 
   parse: function (response) {
     if (response.latest_entries) {
+      console.log("parsing feed");
       this.entries().set(response.latest_entries, { parse: true });
       delete response.latest_entries;
     }

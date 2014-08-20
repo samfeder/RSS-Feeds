@@ -6,21 +6,18 @@ NewReader.Routers.FeedsRouter = Backbone.Router.extend({
 
   routes: {
     "":           "index",
-    "feeds/:id": "feedShow"
-    // "/feeds/:id/entries": "entries"
+    "feeds/:id":  "feedShow"
   },
 
   index: function(){
-    this.$el.html("");
     var feedsIndex = new NewReader.Views.FeedsIndexView();
     this._swapView(feedsIndex);
   },
 
 
   feedShow: function(id){
-    this.$el.html("");
-    this.feed = NewReader.feeds.getOrFetch(parseInt(id));
-    var feedShow = new NewReader.Views.FeedShowView(this.feed);
+    this.feed = NewReader.feeds.getOrFetch(id);
+    var feedShow = new NewReader.Views.FeedShowView({ feed: this.feed });
     this._swapView(feedShow);
   },
 

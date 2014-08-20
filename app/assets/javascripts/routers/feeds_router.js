@@ -13,7 +13,7 @@ NewReader.Routers.FeedsRouter = Backbone.Router.extend({
   index: function(){
     this.$el.html("");
     var feedsIndex = new NewReader.Views.FeedsIndexView();
-    this.$el.html(feedsIndex.render().$el);
+    this._swapView(feedsIndex);
   },
 
 
@@ -21,12 +21,13 @@ NewReader.Routers.FeedsRouter = Backbone.Router.extend({
     this.$el.html("");
     this.feed = NewReader.feeds.getOrFetch(parseInt(id));
     var feedShow = new NewReader.Views.FeedShowView(this.feed);
-    this.$el.html(feedShow.render().$el);
+    this._swapView(feedShow);
+  },
+
+  _swapView: function(newView){
+    this._currentView && this._currentView.remove();
+    this._currentView = newView;
+    this.$el.html(newView.render().$el);
   }
-
-
-  // entries: function () {
-//
-//   }
 
 });

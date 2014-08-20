@@ -1,14 +1,9 @@
 <h2><%= feed.escape("title") %></h2>
 <% console.log(feed) %>
 
-<ul>
-<% feed.entries().forEach(function(entry){ %>
-<li>
-  <a href = "<%= entry.escape('link') %>">
-    <%= entry.escape("title") %>
-  </a>
-</li>
-<% }); %>
+<ul id="entries-list">
+
 </ul>
+
 <button id="refresh-button">Refresh
 </button>

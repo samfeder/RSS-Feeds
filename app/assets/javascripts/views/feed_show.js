@@ -38,7 +38,7 @@ NewReader.Views.FeedShowView = Backbone.View.extend({
     var that = this
     this.entryViews.forEach(function(entryView) {
       entryView.remove();
-      console.log(i);
+      var i = that.entryViews.indexOf(entryView);
       that.entryViews.splice(i, 1);
     });
 

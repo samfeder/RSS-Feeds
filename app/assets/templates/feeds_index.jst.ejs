@@ -1,5 +1,5 @@
 <% feeds.forEach(function(feed){ %>
 
-<h2><%= feed.escape("title") %></h2>
-
+<a href = "#/feeds/<%= feed.escape('id') %>"><%= feed.escape("title") %></a>
+<br>
 <% }); %>

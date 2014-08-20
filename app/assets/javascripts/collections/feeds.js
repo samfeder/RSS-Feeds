@@ -1,5 +1,6 @@
 NewReader.Collections.Feeds = Backbone.Collection.extend({
   url: "/api/feeds",
+
   model: NewReader.Models.Feed
 });
 
